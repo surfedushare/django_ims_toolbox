@@ -63,7 +63,7 @@ A value of ```public``` means that both email address and name will be passed on
 After creating your LTIApp in the admin you'll have to add at least one LTITenant.
 The LTITenant model holds all information about the organization that want to use the LTIApp inside its LMS.
 To add a LTITenant you'll have to specify which ```app``` the tenant is for
-as well as the ```organization``` name and the LMS the tenant will use.
+as well as the ```organization``` name and the ```LMS``` the tenant will use.
 Lastly ```slug``` can be any valid slug and again this value will be mostly opaque to end users.
 
 Once you save your LTITenant it generates a config.xml link
