@@ -6,7 +6,6 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from datagrowth.configuration import ConfigurationField
-from canvas.constants import CanvasVisibility  # TODO: get rid of this dependency
 
 
 class LTIPrivacyLevels(object):
@@ -63,9 +62,7 @@ class LTITenant(models.Model):
     organization = models.CharField(max_length=256)
     slug = models.SlugField()
     lms = models.CharField(max_length=256, choices=LMS_CHOICES)  # learning management system
-    config = ConfigurationField(default={}, blank=True, namespace='ims', config_defaults={
-        'ims_canvas_course_navigation_visibility': CanvasVisibility.ADMINS
-    })
+    config = ConfigurationField(default={}, blank=True, namespace='ims')
 
     client_key = models.UUIDField('consumer key', primary_key=True, default=uuid.uuid4, editable=False, )
     client_secret = models.CharField('shared secret', max_length=30, default=generate_token, editable=False)
