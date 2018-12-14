@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 from django.template.response import TemplateResponse

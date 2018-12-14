@@ -3,7 +3,8 @@ from oauthlib.common import generate_token
 
 from django.conf import settings
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
+from django.core.exceptions import ValidationError
 
 from datagrowth.configuration import ConfigurationField
 
@@ -40,6 +41,14 @@ class LTIApp(models.Model):
 
     def __str__(self):
         return self.title
+
+    def clean(self):
+        try:
+            reverse(self.view)
+        except NoReverseMatch:
+            raise ValidationError(
+                'No reverse match found for view "{}". Please specify a valid view.'.format(self.view)
+            )
 
     class Meta:
         verbose_name = 'LTI app'
