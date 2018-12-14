@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cartridge_basiclti_link xmlns="http://www.imsglobal.org/xsd/imslticc_v1p0"
+                         xmlns:blti = "http://www.imsglobal.org/xsd/imsbasiclti_v1p0"
+                         xmlns:lticm ="http://www.imsglobal.org/xsd/imslticm_v1p0"
+                         xmlns:lticp ="http://www.imsglobal.org/xsd/imslticp_v1p0"
+                         xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation = "http://www.imsglobal.org/xsd/imslticc_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticc_v1p0.xsd
+    http://www.imsglobal.org/xsd/imsbasiclti_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imsbasiclti_v1p0.xsd
+    http://www.imsglobal.org/xsd/imslticm_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticm_v1p0.xsd
+    http://www.imsglobal.org/xsd/imslticp_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticp_v1p0.xsd">
+    <blti:title>{{ app.title }}</blti:title>
+    <blti:description>{{ app.description }}</blti:description>
+    <blti:launch_url>https://{{ host }}/{{ app.slug }}/</blti:launch_url>
+
+    {% if tenant.lms == lms.CANVAS %}
+        <blti:extensions platform="canvas.instructure.com">
+            <lticm:property name="tool_id">{{ app.id }}</lticm:property>
+            <lticm:property name="privacy_level">{{ app.privacy_level }}</lticm:property>
+            <lticm:property name="domain">{{ host }}</lticm:property>
+
+            {% if tenant.config.canvas_course_navigation_visibility %}
+                <lticm:options name="course_navigation">
+                    <lticm:property name="url">https://{{ host }}/{{ app.slug }}</lticm:property>
+                    <lticm:property name="text">{{ app.title }}</lticm:property>
+                    <lticm:property name="visibility">{{ tenant.config.canvas_course_navigation_visibility }}</lticm:property>
+                    <lticm:property name="default">enabled</lticm:property>
+                    <lticm:property name="enabled">true</lticm:property>
+                </lticm:options>
+            {% endif %}
+
+        </blti:extensions>
+    {% endif %}
+
+    <cartridge_bundle identifierref="BLTI001_Bundle"/>
+    <cartridge_icon identifierref="BLTI001_Icon"/>
+
+</cartridge_basiclti_link>
