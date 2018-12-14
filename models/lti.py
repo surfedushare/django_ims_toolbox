@@ -3,7 +3,7 @@ from oauthlib.common import generate_token
 
 from django.conf import settings
 from django.db import models
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.core.urlresolvers import reverse, NoReverseMatch, resolve, Resolver404
 from django.core.exceptions import ValidationError
 
 from datagrowth.configuration import ConfigurationField
@@ -31,7 +31,7 @@ class LTIApp(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     slug = models.SlugField(unique=True)
-    view = models.CharField(max_length=50, choices=VIEW_CHOICES)
+    view = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     modified_at = models.DateTimeField(auto_now=True, editable=False)
 
@@ -43,6 +43,11 @@ class LTIApp(models.Model):
         return self.title
 
     def clean(self):
+        try:
+            view = resolve(self.slug)
+            raise ValidationError('The slug can\'t be an existing view. Currently it matches {}'.format(view.view_name))
+        except Resolver404:
+            pass
         try:
             reverse(self.view)
         except NoReverseMatch:
