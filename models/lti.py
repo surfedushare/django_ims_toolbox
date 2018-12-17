@@ -21,12 +21,6 @@ PRIVACY_LEVEL_CHOICES = tuple([
 ])
 
 
-VIEW_CHOICES = (
-    ('share:common-cartridge-upload', 'Common Cartridge upload'),
-    ('share:common-cartridge-fetch', 'Common Cartridge fetch'),
-)
-
-
 class LTIApp(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
