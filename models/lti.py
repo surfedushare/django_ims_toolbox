@@ -6,7 +6,7 @@ from django.db import models
 from django.core.urlresolvers import reverse, NoReverseMatch, resolve, Resolver404
 from django.core.exceptions import ValidationError
 
-from datagrowth.configuration import ConfigurationField
+from dgconfig import ConfigurationField
 
 
 class LTIPrivacyLevels(object):
