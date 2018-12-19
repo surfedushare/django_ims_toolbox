@@ -35,6 +35,10 @@ class LTIRequestValidator(RequestValidator):
         except LTITenant.DoesNotExist:
             return False
 
+    @property
+    def nonce_length(self):
+        return 20, 42
+
     def validate_timestamp_and_nonce(self, client_key, timestamp, nonce,
                                      request, request_token=None, access_token=None):
         """
