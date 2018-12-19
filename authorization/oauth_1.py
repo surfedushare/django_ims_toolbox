@@ -1,6 +1,8 @@
 from oauthlib.oauth1 import RequestValidator
 
 from django.contrib.auth.backends import RemoteUserBackend
+from django.core.exceptions import ValidationError
+from social_django.models import Nonce
 
 from ims.models import LTITenant
 
@@ -36,32 +38,15 @@ class LTIRequestValidator(RequestValidator):
     def validate_timestamp_and_nonce(self, client_key, timestamp, nonce,
                                      request, request_token=None, access_token=None):
         """
-        This function always returns True, because this check is unnecessary in our case.
-        Usually a request validation happens in two steps.
-        The consumer asks to login. The client acknowledges by distributing a "nonce" (a one use token).
-        This nonce should be checked if indeed nobody has used the nonce before.
-        However in the LTI protocol a "launch" is initiated by the consumer in one go.
-        Therefor we can not secure these requests with a nonce.
-        To mitigate risks the launch should always happen over SSL.
-
-        :param client_key:
-        :param timestamp:
-        :param nonce:
-        :param request:
-        :param request_token:
-        :param access_token:
-        :return:
+        To prevent replay attacks we need to check whether the nonce has not been used before for client and time
+        The Nonce has a unique_together on all its fields and should raise when the Nonce was created before
+        As fallback there is also the created variable which should always be True
         """
-        return True
-
-    def check_nonce(self, nonce):
-        """
-        Not checking nonce validity. See validate_timestamp_and_nonce docstring
-
-        :param nonce:
-        :return:
-        """
-        return True
+        try:
+            nonce, created = Nonce.objects.get_or_create(timestamp=timestamp, salt=nonce, server_url=client_key)
+        except ValidationError:
+            return False
+        return created
 
 
 class LTIRemoteUserBackend(RemoteUserBackend):
