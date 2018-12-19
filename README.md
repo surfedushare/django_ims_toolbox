@@ -11,6 +11,7 @@ You can run the following commands in the root of your project:
 ```bash
 git submodule add git@github.com:SURFpol/django_ims_toolbox.git ims
 git submodule update
+pip install ims/requirements.txt
 ./manage.py migrate
 ```
 
