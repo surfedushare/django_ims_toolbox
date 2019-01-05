@@ -1,4 +1,5 @@
 *.iml
+*.pyc
 .idea
 __pycache__
 
