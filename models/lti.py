@@ -79,6 +79,7 @@ class LTITenant(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     modified_at = models.DateTimeField(auto_now=True, editable=False)
+    lms_domain = models.URLField(max_length=512, null=True)
 
     def _start_generic_session(self, launch_request, data):
         launch_request.session['roles'] = ''
