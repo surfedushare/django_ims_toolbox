@@ -3,7 +3,7 @@ from django.http import HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 from django.template.response import TemplateResponse
 from django.contrib.auth import authenticate, login
-from django.core.urlresolvers import reverse, resolve
+from django.urls import reverse, resolve
 
 from lti.contrib.django import DjangoToolProvider
 

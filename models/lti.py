@@ -3,7 +3,7 @@ from oauthlib.common import generate_token
 
 from django.conf import settings
 from django.db import models
-from django.core.urlresolvers import reverse, NoReverseMatch, resolve, Resolver404
+from django.urls import reverse, NoReverseMatch, resolve, Resolver404
 from django.core.exceptions import ValidationError
 
 from datagrowth.configuration.fields import ConfigurationField
