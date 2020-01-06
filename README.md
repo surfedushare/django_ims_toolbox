@@ -110,8 +110,9 @@ These differences mostly manifest in LTI configurations.
 Because the configuration should be depending on the LMS
 and the LMS differs per organization the LTI configuration is controlled through the LTITenant model.
 
-An LTITenant uses the dgconfig ConfigurationField to manage different configurations.
-You can read more about that model field at the [dgconfig Github repo](https://github.com/fako/dgconfig).
+An LTITenant uses the datagrowth ConfigurationField to manage different configurations.
+You can read more about that model field and configurations in general at the
+[datagrowth configuration docs](https://data-scope.com/datagrowth/configuration/#django-fields).
 
 To give one usage example here. Currently Canvas (a LMS) will display a link in its course navigation
 if the ```tenant.lms``` equals ```Canvas``` and the tenant configuration
