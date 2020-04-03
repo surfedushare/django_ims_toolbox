@@ -1,1 +1,1 @@
-from .oauth_1 import LTIRequestValidator, LTIRemoteUserBackend
+from ims.authorization.oauth_1 import LTIRequestValidator, LTIRemoteUserBackend
