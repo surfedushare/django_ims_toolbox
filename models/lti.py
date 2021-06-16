@@ -66,7 +66,7 @@ LMS_CHOICES = tuple([
 
 class LTITenant(models.Model):
 
-    app = models.ForeignKey(LTIApp)
+    app = models.ForeignKey(LTIApp, on_delete=models.CASCADE)
     organization = models.CharField(max_length=256)
     slug = models.SlugField()
     lms = models.CharField(max_length=256, choices=LMS_CHOICES)  # learning management system
