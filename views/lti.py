@@ -59,6 +59,7 @@ def lti_config(request, app_slug, tenant_slug):
     })
 
 
+@csrf_exempt
 def lti_debug_launch(request, slug):
     app = get_object_or_404(LTIApp, slug=slug)
     client_key = request.GET.get('client_key', None)
